@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class LevelUpCreditCardValidationTest {
@@ -19,53 +22,51 @@ class LevelUpCreditCardValidationTest {
     }
 
     @Test
-    void testThatCreditCardTypeIsAmericanExpressIfCreditCardNumberStartsWith37(){
-        String creditCardNumber = "378282246310005";
-        creditCardValidationRequest.setCardNumber(creditCardNumber);
-        String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("American Express", cardType);
+    void testThatCreditCardTypeIsAmericanExpressIfCreditCardNumberStartsWith34Or37() {
+        String[] creditCardNumbers = {"378282246310005", "348282246310005"};
+        List<String> listOfCreditCardNumber = Arrays.asList(creditCardNumbers);
+        listOfCreditCardNumber.forEach(creditCardNumber -> {
+            creditCardValidationRequest.setCardNumber(creditCardNumber);
+            String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
+            assertEquals("American Express", cardType);
+        });
     }
     @Test
-    void testThatCreditCardTypeIsAmericanExpressIfCreditCardNumberStartsWith34(){
-        String creditCardNumber = "348282246310005";
-        creditCardValidationRequest.setCardNumber(creditCardNumber);
-        String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("American Express", cardType);
+    void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith51Through55(){
+        String[] creditCardNumbers = {"5105105105105100", "5205105105105100", "5305105105105100",
+                "5405105105105100", "5505105105105100"};
+        List<String> listOfCreditCardNumber = Arrays.asList(creditCardNumbers);
+        listOfCreditCardNumber.forEach(creditCardNumber -> {
+            creditCardValidationRequest.setCardNumber(creditCardNumber);
+            String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
+            assertEquals("MasterCard", cardType);
+        });
     }
     @Test
-    void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith51(){
-        String creditCardNumber = "5105105105105100";
-        creditCardValidationRequest.setCardNumber(creditCardNumber);
-        String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("MasterCard", cardType);
+    void testThatCreditCardTypeIsDinersClubAndCarteBlancheIfCreditCardNumberStartsWith36Or38Or300Through305(){
+        String [] creditCardNumbers =  {"38569309025904","36569309025904","30069309025904", "30169309025904",
+                "30269309025904", "30369309025904", "30469309025904", "30569309025904"};
+        List<String> listOfCreditCardNumber = Arrays.asList(creditCardNumbers);
+        listOfCreditCardNumber.forEach(creditCardNumber->{
+            creditCardValidationRequest.setCardNumber(creditCardNumber);
+            String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
+            assertEquals("DinersClubAndCarteBlanche", cardType);
+        });
+
     }
     @Test
-    void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith52(){
-        String creditCardNumber = "5205105105105100";
+    void testThatCreditCardTypeIsDiscoverIfCreditCardNumberStartsWith6011(){
+        String creditCardNumber = "6011000990139424";
         creditCardValidationRequest.setCardNumber(creditCardNumber);
         String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("MasterCard", cardType);
+        assertEquals("Discover", cardType);
     }
     @Test
-    void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith53(){
-        String creditCardNumber = "5305105105105100";
+    void testThatCreditCardTypeIsJCBIfCreditCardNumberStartsWith3(){
+        String creditCardNumber = "3530111333300000";
         creditCardValidationRequest.setCardNumber(creditCardNumber);
         String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("MasterCard", cardType);
-    }
-    @Test
-    void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith54(){
-        String creditCardNumber = "5405105105105100";
-        creditCardValidationRequest.setCardNumber(creditCardNumber);
-        String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("MasterCard", cardType);
-    }
-    @Test
-    void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith55(){
-        String creditCardNumber = "5505105105105100";
-        creditCardValidationRequest.setCardNumber(creditCardNumber);
-        String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-        assertEquals("MasterCard", cardType);
+        assertEquals("JCB", cardType);
     }
     @Test
     void testThatCreditCardTypeIsVisaIfCreditCardNumberStartsWith4(){
@@ -90,10 +91,12 @@ class LevelUpCreditCardValidationTest {
     }
     @Test
     void testThatCardNumberLengthIsValidIfCardNumberIsThirteenOrSixteenAndCardTypeIsVisa(){
-        String creditCardNumber = "4111111111111111";
-        assertEquals(16, creditCardNumber.length());
-        assertEquals("Visa", creditCardValidation.getCardType(creditCardNumber));
-        assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
+        String [] creditCardNumbers =  { "4111111111111111", "4111111111111"};
+        List<String> listOfCreditCardNumber = Arrays.asList(creditCardNumbers);
+        listOfCreditCardNumber.forEach(creditCardNumber->{
+            assertEquals("Visa", creditCardValidation.getCardType(creditCardNumber));
+            assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
+        });
     }
     @Test
     void testThatCardNumberLengthIsNotValidIfCreditCardTypeIsUnknown(){

@@ -20,6 +20,9 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
         boolean isAmericanExpressCard = cardNumber.startsWith("37") || cardNumber.startsWith("34");
         boolean isMasterCard = cardNumber.startsWith("5") && cardNumber.charAt(1) >= '1' && cardNumber.charAt(1) <= '5';
         boolean isVisaCard = cardNumber.startsWith("4");
+        boolean isDinersClubAndCarteBlanche = cardNumber.startsWith("36") || cardNumber.startsWith("38") || isValidCardNumberPrefixForDinersClubAndCarteBlanche(cardNumber);
+        boolean isDiscover = cardNumber.startsWith("6011");
+        boolean isJCB = cardNumber.startsWith("3");
         if (isAmericanExpressCard) {
             return "American Express";
         }
@@ -29,7 +32,22 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
         else if (isVisaCard) {
             return "Visa";
         }
+        else if (isDinersClubAndCarteBlanche) {
+            return "DinersClubAndCarteBlanche";
+        }
+        else if (isDiscover) {
+            return "Discover";
+        }
+        else if (isJCB) {
+            return "JCB";
+        }
         return "Unknown";
+    }
+
+    private boolean isValidCardNumberPrefixForDinersClubAndCarteBlanche(String cardNumber) {
+        String cardNumberPrefix = cardNumber.substring(0,3);
+        int conversionOfPrefixToInteger = Integer.parseInt(cardNumberPrefix);
+        return (conversionOfPrefixToInteger >= 300 && conversionOfPrefixToInteger <= 305);
     }
 
     @Override
