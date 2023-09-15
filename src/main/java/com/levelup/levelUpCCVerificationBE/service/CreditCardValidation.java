@@ -15,5 +15,5 @@ public interface CreditCardValidation {
 
     boolean isValidCardNumberUsingLuhnAlgorithm(String creditCardNumber);
 
-    void validateNumberFormat(String cardNumber);
+    void validateNumberFormat(String number);
 }

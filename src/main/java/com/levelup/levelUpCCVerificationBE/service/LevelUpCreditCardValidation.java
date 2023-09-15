@@ -126,12 +126,12 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
     }
 
     @Override
-    public void validateNumberFormat(String cardNumber) throws LevelUpException{
-            if (cardNumber.contains(" ")) {
+    public void validateNumberFormat(String number) throws LevelUpException{
+            if (number.contains(" ")) {
                 throw new LevelUpException("Card number cannot contain spaces.");
             }
 
-            if (!cardNumber.matches("\\d+")) {
+            if (!number.matches("\\d+")) {
                 throw new LevelUpException("Card number can only contain digits.");
             }
 
