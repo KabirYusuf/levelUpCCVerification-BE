@@ -90,6 +90,27 @@ class LevelUpCreditCardValidationTest {
         assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
     }
     @Test
+    void testThatCardNumberLengthIsValidIfCardNumberIsFourteenAndCardTypeIsDinersClubAndCarteBlanche(){
+        String creditCardNumber = "30369309025904";
+        assertEquals(14, creditCardNumber.length());
+        assertEquals("DinersClubAndCarteBlanche", creditCardValidation.getCardType(creditCardNumber));
+        assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
+    }
+    @Test
+    void testThatCardNumberLengthIsValidIfCardNumberIsSixteenAndCardTypeIsDiscover(){
+        String creditCardNumber = "6011000990139424";
+        assertEquals(16, creditCardNumber.length());
+        assertEquals("Discover", creditCardValidation.getCardType(creditCardNumber));
+        assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
+    }
+    @Test
+    void testThatCardNumberLengthIsValidIfCardNumberIsSixteenAndCardTypeIsJCB(){
+        String creditCardNumber = "3530111333300000";
+        assertEquals(16, creditCardNumber.length());
+        assertEquals("JCB", creditCardValidation.getCardType(creditCardNumber));
+        assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
+    }
+    @Test
     void testThatCardNumberLengthIsValidIfCardNumberIsThirteenOrSixteenAndCardTypeIsVisa(){
         String [] creditCardNumbers =  { "4111111111111111", "4111111111111"};
         List<String> listOfCreditCardNumber = Arrays.asList(creditCardNumbers);
