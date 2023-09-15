@@ -12,4 +12,8 @@ public interface CreditCardValidation {
     boolean isValidCvv(String creditCardNumber, String cvv);
 
     boolean isValidExpirationDate(String expirationDate);
+
+    boolean isValidCardNumberUsingLuhnAlgorithm(String creditCardNumber);
+
+    void validCreditCardNumberFormat(String cardNumber);
 }

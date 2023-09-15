@@ -84,4 +84,35 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
             throw new LevelUpException("Invalid expiry date format");
         }
     }
+
+    @Override
+    public boolean isValidCardNumberUsingLuhnAlgorithm(String creditCardNumber) {
+        int sum = 0;
+        boolean alternateBetweenOddAndEvenPosition = false;
+        for (int i = creditCardNumber.length() - 1; i >= 0; i--) {
+            int digit = Integer.parseInt(creditCardNumber.substring(i, i + 1));
+            if (alternateBetweenOddAndEvenPosition) {
+                digit *= 2;
+                if (digit > 9) {
+                    digit -= 9;
+                }
+            }
+            sum += digit;
+            alternateBetweenOddAndEvenPosition = !alternateBetweenOddAndEvenPosition;
+        }
+        return (sum % 10 == 0);
+    }
+
+    @Override
+    public void validCreditCardNumberFormat(String cardNumber) throws LevelUpException{
+            if (cardNumber.contains(" ")) {
+                throw new LevelUpException("Card number cannot contain spaces.");
+            }
+
+            if (!cardNumber.matches("\\d+")) {
+                throw new LevelUpException("Card number can only contain digits.");
+            }
+
+
+    }
 }

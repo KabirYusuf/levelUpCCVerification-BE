@@ -164,6 +164,22 @@ class LevelUpCreditCardValidationTest {
         String expirationDate = "10/2034";
         assertThrows(LevelUpException.class, ()-> creditCardValidation.isValidExpirationDate(expirationDate));
     }
+    @Test
+    void testThatCardNumberIsValidUsingLuhnAlgorithmIfTheCardNumberIsProperlyFormulated(){
+        String validCreditCardNumber = "4417123456789113";
+        assertTrue(creditCardValidation.isValidCardNumberUsingLuhnAlgorithm(validCreditCardNumber));
+    }
+    @Test
+    void testThatCardNumberIsNotValidUsingLuhnAlgorithmIfTheCardNumberIsNotProperlyFormulated(){
+        String inValidCreditCardNumber = "4624748233249080";
+        assertFalse(creditCardValidation.isValidCardNumberUsingLuhnAlgorithm(inValidCreditCardNumber));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfNumberContainsSpace(){
+        String cardNumber = "4624 7482 3324 9080";
+        assertThrows(LevelUpException.class, ()-> creditCardValidation.validCreditCardNumberFormat(cardNumber));
+    }
+
 
 
 }
