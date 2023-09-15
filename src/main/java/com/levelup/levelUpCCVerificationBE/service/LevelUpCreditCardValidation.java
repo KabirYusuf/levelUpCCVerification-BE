@@ -27,7 +27,7 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
                 return false;
             }
 
-            if (!isValidCvv(creditCardValidationRequest.getCardNumber(), creditCardValidationRequest.getCvv())) {
+            if (!isValidCvv(creditCardValidationRequest.getCvv())) {
                 return false;
             }
 
@@ -39,16 +39,13 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
 
     @Override
     public String getCardType(String cardNumber) {
-        boolean isAmericanExpressCard = cardNumber.startsWith("37") || cardNumber.startsWith("34");
         boolean isMasterCard = cardNumber.startsWith("5") && cardNumber.charAt(1) >= '1' && cardNumber.charAt(1) <= '5';
         boolean isVisaCard = cardNumber.startsWith("4");
         boolean isDinersClubAndCarteBlanche = cardNumber.startsWith("36") || cardNumber.startsWith("38") || isValidCardNumberPrefixForDinersClubAndCarteBlanche(cardNumber);
         boolean isDiscover = cardNumber.startsWith("6011");
         boolean isJCB = cardNumber.startsWith("3");
-        if (isAmericanExpressCard) {
-            return "American Express";
-        }
-        else if (isMasterCard) {
+
+        if (isMasterCard) {
             return "MasterCard";
         }
         else if (isVisaCard) {
@@ -89,10 +86,8 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
     }
 
     @Override
-    public boolean isValidCvv(String creditCardNumber, String cvv) {
-        String creditCardType = getCardType(creditCardNumber);
-        if (creditCardType.equals("American Express")) return cvv.length() == 4;
-        else return cvv.length() == 3;
+    public boolean isValidCvv(String cvv) {
+        return cvv.length() == 3;
     }
 
     @Override
@@ -128,11 +123,11 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
     @Override
     public void validateNumberFormat(String number) throws LevelUpException{
             if (number.contains(" ")) {
-                throw new LevelUpException("Card number cannot contain spaces.");
+                throw new LevelUpException("Card number and cvv cannot contain spaces.");
             }
 
             if (!number.matches("\\d+")) {
-                throw new LevelUpException("Card number can only contain digits.");
+                throw new LevelUpException("Card number and cvv can only contain digits.");
             }
 
 

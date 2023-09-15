@@ -9,7 +9,7 @@ public interface CreditCardValidation {
 
     boolean isValidCreditCardNumberLength(String cardNumber);
 
-    boolean isValidCvv(String creditCardNumber, String cvv);
+    boolean isValidCvv(String cvv);
 
     boolean isValidExpirationDate(String expirationDate);
 

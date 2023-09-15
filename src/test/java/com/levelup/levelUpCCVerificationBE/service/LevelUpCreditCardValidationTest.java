@@ -20,17 +20,6 @@ class LevelUpCreditCardValidationTest {
     void setup(){
         creditCardValidationRequest = new CreditCardValidationRequest();
     }
-
-    @Test
-    void testThatCreditCardTypeIsAmericanExpressIfCreditCardNumberStartsWith34Or37() {
-        String[] creditCardNumbers = {"378282246310005", "348282246310005"};
-        List<String> listOfCreditCardNumber = Arrays.asList(creditCardNumbers);
-        listOfCreditCardNumber.forEach(creditCardNumber -> {
-            creditCardValidationRequest.setCardNumber(creditCardNumber);
-            String cardType = creditCardValidation.getCardType(creditCardValidationRequest.getCardNumber());
-            assertEquals("American Express", cardType);
-        });
-    }
     @Test
     void testThatCreditCardTypeIsMasterCardIfCreditCardNumberStartsWith51Through55(){
         String[] creditCardNumbers = {"5105105105105100", "5205105105105100", "5305105105105100",
@@ -76,13 +65,6 @@ class LevelUpCreditCardValidationTest {
         assertEquals("Visa", cardType);
     }
     @Test
-    void testThatCardNumberLengthIsValidIfCardNumberIsFifteenAndCardTypeIsAmericanExpress(){
-        String creditCardNumber = "378282246310005";
-        assertEquals(15, creditCardNumber.length());
-        assertEquals("American Express", creditCardValidation.getCardType(creditCardNumber));
-        assertTrue(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
-    }
-    @Test
     void testThatCardNumberLengthIsValidIfCardNumberIsSixteenAndCardTypeIsMasterCard(){
         String creditCardNumber = "5505105105105100";
         assertEquals(16, creditCardNumber.length());
@@ -126,28 +108,18 @@ class LevelUpCreditCardValidationTest {
         assertFalse(creditCardValidation.isValidCreditCardNumberLength(creditCardNumber));
     }
     @Test
-    void testThatCvvIsValidIfTheLengthIsFourAndCardTypeIsAmericanExpress(){
-        String cvv = "1234";
-        String creditCardNumber = "378282246310005";
-        assertEquals(4, cvv.length());
-        assertEquals("American Express", creditCardValidation.getCardType(creditCardNumber));
-        assertTrue(creditCardValidation.isValidCvv(creditCardNumber,cvv));
-    }
-    @Test
     void testThatCvvIsValidIfTheLengthIsThreeAndCardTypeIsMasterCard(){
         String cvv = "123";
         String creditCardNumber = "5505105105105100";
         assertEquals(3, cvv.length());
-        assertEquals("MasterCard", creditCardValidation.getCardType(creditCardNumber));
-        assertTrue(creditCardValidation.isValidCvv(creditCardNumber,cvv));
+        assertTrue(creditCardValidation.isValidCvv(cvv));
     }
     @Test
     void testThatCvvIsValidIfTheLengthIsThreeAndCardTypeIsVisa(){
         String cvv = "123";
         String creditCardNumber = "4111111111111111";
         assertEquals(3, cvv.length());
-        assertEquals("Visa", creditCardValidation.getCardType(creditCardNumber));
-        assertTrue(creditCardValidation.isValidCvv(creditCardNumber,cvv));
+        assertTrue(creditCardValidation.isValidCvv(cvv));
     }
     @Test
     void testThatExpirationDateIsValidIfExpirationDateIsAfterCurrentDate(){
