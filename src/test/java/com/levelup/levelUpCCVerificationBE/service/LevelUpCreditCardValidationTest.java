@@ -175,9 +175,80 @@ class LevelUpCreditCardValidationTest {
         assertFalse(creditCardValidation.isValidCardNumberUsingLuhnAlgorithm(inValidCreditCardNumber));
     }
     @Test
-    void testThatAnExceptionIsThrownIfNumberContainsSpace(){
+    void testThatAnExceptionIsThrownIfCardNumberContainsSpace(){
         String cardNumber = "4624 7482 3324 9080";
-        assertThrows(LevelUpException.class, ()-> creditCardValidation.validCreditCardNumberFormat(cardNumber));
+        assertThrows(LevelUpException.class, ()-> creditCardValidation.validateNumberFormat(cardNumber));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCardNumberContainsNonDigit(){
+        String cardNumber = "462a74g233249080";
+        assertThrows(LevelUpException.class, ()-> creditCardValidation.validateNumberFormat(cardNumber));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCvvContainsSpace(){
+        String cvv = "1 23";
+        assertThrows(LevelUpException.class, ()-> creditCardValidation.validateNumberFormat(cvv));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCvvNonDigit(){
+        String cvv = "Au3";
+        assertThrows(LevelUpException.class, ()-> creditCardValidation.validateNumberFormat(cvv));
+    }
+    @Test
+    void testThatACreditCardIsValidIfAllPropertiesOfTheCreditCardAreValid(){
+        creditCardValidationRequest.setCardNumber("4417123456789113");
+        creditCardValidationRequest.setCvv("123");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertTrue(creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatACreditCardIsNotValidIfCardNumberIsNotCorrect(){
+        creditCardValidationRequest.setCardNumber("4624748233249080");
+        creditCardValidationRequest.setCvv("123");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertFalse(creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatACreditCardIsNotValidIfCvvIsNotCorrect(){
+        creditCardValidationRequest.setCardNumber("4417123456789113");
+        creditCardValidationRequest.setCvv("123678");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertFalse(creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatACreditCardIsNotValidIfCardHasExpired(){
+        creditCardValidationRequest.setCardNumber("4417123456789113");
+        creditCardValidationRequest.setCvv("123");
+        creditCardValidationRequest.setExpiryDate("10/22");
+        assertFalse(creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCreditCardNumberFormatIsIncorrect(){
+        creditCardValidationRequest.setCardNumber("4417 12345 6789113");
+        creditCardValidationRequest.setCvv("123");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertThrows(LevelUpException.class, ()->creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCreditCardNumberContainNonDigit(){
+        creditCardValidationRequest.setCardNumber("441n12345m6789113");
+        creditCardValidationRequest.setCvv("123");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertThrows(LevelUpException.class, ()->creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCvvContainNonDigit(){
+        creditCardValidationRequest.setCardNumber("4417123456789113");
+        creditCardValidationRequest.setCvv("12v");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertThrows(LevelUpException.class, ()->creditCardValidation.validateCreditCard(creditCardValidationRequest));
+    }
+    @Test
+    void testThatAnExceptionIsThrownIfCvvWhiteSpace(){
+        creditCardValidationRequest.setCardNumber("4417123456789113");
+        creditCardValidationRequest.setCvv("12 3");
+        creditCardValidationRequest.setExpiryDate("10/25");
+        assertThrows(LevelUpException.class, ()->creditCardValidation.validateCreditCard(creditCardValidationRequest));
     }
 
 

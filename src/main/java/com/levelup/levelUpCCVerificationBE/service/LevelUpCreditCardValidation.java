@@ -12,7 +12,29 @@ import java.time.format.DateTimeParseException;
 public class LevelUpCreditCardValidation implements CreditCardValidation{
     @Override
     public boolean validateCreditCard(CreditCardValidationRequest creditCardValidationRequest) {
-        return false;
+        try {
+            validateNumberFormat(creditCardValidationRequest.getCardNumber());
+            validateNumberFormat(creditCardValidationRequest.getCvv());
+
+            if (!isValidCardNumberUsingLuhnAlgorithm(creditCardValidationRequest.getCardNumber())) {
+                return false;
+            }
+            if (!isValidCreditCardNumberLength(creditCardValidationRequest.getCardNumber())) {
+                return false;
+            }
+
+            if (!isValidExpirationDate(creditCardValidationRequest.getExpiryDate())) {
+                return false;
+            }
+
+            if (!isValidCvv(creditCardValidationRequest.getCardNumber(), creditCardValidationRequest.getCvv())) {
+                return false;
+            }
+
+            return true;
+        } catch (LevelUpException levelUpException) {
+            throw new LevelUpException(levelUpException.getMessage());
+        }
     }
 
     @Override
@@ -104,7 +126,7 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
     }
 
     @Override
-    public void validCreditCardNumberFormat(String cardNumber) throws LevelUpException{
+    public void validateNumberFormat(String cardNumber) throws LevelUpException{
             if (cardNumber.contains(" ")) {
                 throw new LevelUpException("Card number cannot contain spaces.");
             }
