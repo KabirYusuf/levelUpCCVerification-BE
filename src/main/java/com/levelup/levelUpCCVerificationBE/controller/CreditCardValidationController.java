@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/credit-card/validate/")
-@CrossOrigin("*")
 @Slf4j
+@CrossOrigin("*")
 public class CreditCardValidationController {
     @Autowired
     private CreditCardValidation creditCardValidation;
@@ -20,7 +20,7 @@ public class CreditCardValidationController {
         boolean isValidCard = creditCardValidation.validateCreditCard(creditCardValidationRequest);
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setSuccessfulRequest(true);
-        apiResponse.setData("Card Validity: " + isValidCard);
+        apiResponse.setData("Is card valid? : " + isValidCard);
         return ResponseEntity.ok(apiResponse);
     }
 }

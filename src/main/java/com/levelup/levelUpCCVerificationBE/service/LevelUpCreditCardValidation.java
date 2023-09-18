@@ -73,7 +73,6 @@ public class LevelUpCreditCardValidation implements CreditCardValidation{
     public boolean isValidCreditCardNumberLength(String cardNumber) {
         String creditCardType = getCardType(cardNumber);
         switch (creditCardType){
-            case "American Express": if (cardNumber.length() == 15)return true;
             case "DinersClubAndCarteBlanche": if (cardNumber.length() == 14) return true;
             case "Visa": if (cardNumber.length() == 13 || cardNumber.length() == 16) return true;
             case "Discover":
