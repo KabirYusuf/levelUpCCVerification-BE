@@ -30,12 +30,12 @@ git clone https://github.com/KabirYusuf/levelUpCCVerification-BE.git
 Navigate to the project directory and install the necessary dependencies using Maven:
 
 Windows (Run the following commands on your terminal):
-cd levelUpCCVerification-BE
-mvn clean install
+- cd levelUpCCVerification-BE
+- mvn clean install
 
 macOS/Linux (Run the following commands on your terminal):
-cd levelUpCCVerification-BE
-./mvnw clean install
+- cd levelUpCCVerification-BE
+- ./mvnw clean install
 
 Make sure your system is connected to the internet as Maven will download required dependencies.
 
@@ -43,10 +43,10 @@ Make sure your system is connected to the internet as Maven will download requir
 You can run the Spring Boot application using the following Maven command on your terminal:
 
 Windows:
-mvn spring-boot:run
+- mvn spring-boot:run
 
 macOS/Linux:
-./mvnw spring-boot:run
+- ./mvnw spring-boot:run
 
 You can also run the Credit Card Validation Backend using popular Integrated Development Environments (IDEs) like IntelliJ IDEA and Eclipse.
 
@@ -56,18 +56,18 @@ The application will start locally on port 8080.
 All functionalities in this application have been tested using JUnit 5.9.3. To run the tests, you can use the following Maven command:
 
 Windows:
-mvn test
+- mvn test
 
 macOS/Linux:
-./mvnw test
+- ./mvnw test
 
 ## API Documentation
 The API provides a single endpoint for validating credit card information:
 
-Endpoint: localhost:8080/api/v1/credit-card/validate/
-Method: POST
-Request Body: JSON object with three properties: expiryDate, cvv, and cardNumber.
-Example Request Body:
+- Endpoint: localhost:8080/api/v1/credit-card/validate/
+- Method: POST
+- Request Body: JSON object with three properties: expiryDate, cvv, and cardNumber.
+- Example Request Body:
 {
 "expiryDate":"10/25",
 "cvv": "123",
