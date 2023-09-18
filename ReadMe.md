@@ -1,6 +1,6 @@
 # Credit Card Validation Backend
 
-The Credit Card Validation Backend is a Java Spring Boot application designed by Yusuf Kabir Adekunle. It provides a RESTful API for validating credit card information. The application uses Java 17, Spring Boot 3.1.3, and follows Test-Driven Development (TDD) principles with JUnit 5.9.3 for testing functionality.
+The Credit Card Validation Backend is a Java Spring Boot application designed by Yusuf Kabir Adekunle, email: kabiryusuf2307@gmail.com. It provides a RESTful API for validating credit card information. The application uses Java 17, Spring Boot 3.1.3, and follows Test-Driven Development (TDD) principles with JUnit 5.9.3 for testing functionality.
 
 **Prerequisites:**
 - Java 17 or higher
