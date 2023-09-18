@@ -103,11 +103,11 @@ For example, if `isSuccessfulRequest` is `true`, you can check the value of `dat
 ## Supported Card Types
 The application supports the validation of the following card types:
 
-Visa
-Mastercard
-Discover
-JCB
-Diners Club and Carte Blanche
+- Visa
+- Mastercard
+- Discover
+- JCB
+- Diners Club and Carte Blanche
 
 ## Exception Handling
 This application handles exceptions gracefully. Invalid input data or format will result in appropriate exception responses.
