@@ -54,6 +54,7 @@ The application will start locally on port 8080.
 
 ## Testing
 All functionalities in this application have been tested using JUnit 5.9.3. To run the tests, you can use the following Maven command:
+The test file can be found inside the test directory "src/test/java/com/levelup/levelUpCCVerificationBE/service/LevelUpCreditCardValidationTest.java"
 
 Windows:
 - mvn test
