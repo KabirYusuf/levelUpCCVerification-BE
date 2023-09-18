@@ -74,6 +74,32 @@ The API provides a single endpoint for validating credit card information:
 "cardNumber":"4417123456789113"
 }
 
+ApiResponse
+
+The application's RESTful API returns responses in the form of an `ApiResponse` object. This object consists of two main properties:
+
+### `isSuccessfulRequest`
+
+- Type: `boolean`
+- Description: Indicates whether the request was successful or if an exception was thrown during processing.
+- Values:
+  - `true`: The request was successful, and no exceptions were encountered.
+  - `false`: An exception occurred during the request.
+
+### `data`
+
+- Type: `string`
+- Description: Contains a string message that indicates the validity of the credit card.
+- Format: The message is in the following format: `"Is card valid? : " + isValidCard`
+- Values:
+  - `"Is card valid? : true"`: Indicates that the credit card is valid.
+  - `"Is card valid? : false"`: Indicates that the credit card is not valid.
+
+You can use these properties to determine the success of your requests and check the validity of credit cards when working with the API.
+
+For example, if `isSuccessfulRequest` is `true`, you can check the value of `data` to determine if the credit card is valid or not.
+
+
 ## Supported Card Types
 The application supports the validation of the following card types:
 
